@@ -1,0 +1,20 @@
+.section { margin: 0.6rem 0 1.2rem 0; padding: 0.25rem; }
+.section-header h2 { font-family: 'UnifrakturCook', 'Cinzel', serif; margin:0 0 0.6rem 0; font-size:1.4rem; color:#f7efe6 }
+.section-body { color: #d8cfc4; line-height:1.5 }
+.growth-list { list-style: none; padding-left:0 }
+.growth-list li { padding:0.35rem 0; border-bottom:1px dashed rgba(255,255,255,0.02) }
+
+/* Subheading for sections (used on Growth) */
+.section-subheading {
+	margin: 0 0 0.6rem 0;
+	color: #d1c7bd;
+	font-size: 0.98rem;
+	font-style: italic;
+	max-width: 54ch;
+	opacity: 0.95;
+}
+
+/* Growth item subheading */
+.growth-item { padding: 0.25rem 0; }
+.growth-title { font-weight: 700; color: #efe6dc; display:block }
+.item-sub { margin: 0.28rem 0 0 0; color: #cfc6bb; font-size: 0.95rem; max-width: 64ch; }

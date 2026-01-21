@@ -1,38 +1,158 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.site {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* Background image is set inline in App.js using process.env.PUBLIC_URL
+     to avoid css-loader attempting to resolve public asset paths during build. */
+  background-color: #050505;
+  color: #e6e0d6;
+  font-family: 'Cinzel', Georgia, serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.App-link {
-  color: #61dafb;
+.main {
+  max-width: 1250px;
+  margin: 4.5rem auto;
+  padding: 3rem 1.5rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.lead {
+  font-family: 'UnifrakturCook', 'Cinzel', serif;
+  font-size: 1.6rem;
+  color: #f7efe6;
+  margin-bottom: 0.5rem;
 }
+
+/* Hero and subhero styles for Home */
+.hero {
+  font-family: 'UnifrakturCook', 'Cinzel', serif;
+  font-size: clamp(3rem, 9vw, 5.5rem);
+  color: #fff;
+  margin: 0 0 0.12rem 0;
+  line-height: 1.01;
+  letter-spacing: 0.8px;
+}
+.subhero {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.2rem, 4.2vw, 2rem);
+  color: #d9d0c5;
+  margin: 0 0 1.1rem 0;
+  font-weight: 400;
+}
+
+.hero-row { display:flex; gap:3.6rem; align-items:center; justify-content:space-between; }
+.hero-text { flex: 1 1 58%; padding-right: 0.2rem; }
+.profile-img {
+  width: clamp(180px, 24vw, 340px);
+  height: clamp(180px, 24vw, 340px);
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid rgba(255,255,255,0.09);
+  box-shadow: 0 16px 44px rgba(0,0,0,0.65), 0 0 0 8px rgba(0,0,0,0.14) inset;
+  flex-shrink:0;
+  margin-left: -10rem;
+}
+
+@media (max-width:1200px) {
+  .hero-row { gap:2.4rem }
+  .profile-img { width:220px; height:220px; margin-left: 10 }
+  .hero-text { width: 100%; padding-right: 0; }
+}
+
+@media (max-width:960px) {
+  .hero-row { gap:1.6rem }
+  .profile-img { width:160px; height:160px }
+  .hero-text { width: 100%; padding-right: 0; }
+}
+
+@media (max-width:680px) {
+  .hero-row { flex-direction:column; align-items:flex-start; gap:0.9rem }
+  .profile-img { width:120px; height:120px }
+}
+
+.media-smallFix {}
+
+@media (max-width:560px) {
+  .hero { font-size: clamp(1.4rem, 9vw, 2.2rem); }
+  .subhero { font-size: 0.98rem; }
+  .main { margin: 1rem auto; padding: 0.9rem; }
+  .profile-img { width:96px; height:96px }
+}
+
+/* hero text adjustments */
+.hero-text p { max-width: 70ch; font-size: 1.12rem; color: #e8dfd4; margin-top: 0.8rem }
+.muted {
+  color: #b9b1a6;
+  font-size: 0.9rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1rem;
+}
+
+.card {
+  background: linear-gradient(180deg, rgba(20,18,20,0.6), rgba(8,6,7,0.6));
+  border: 1px solid rgba(200,180,170,0.06);
+  padding: 1.25rem;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(3,3,3,0.6);
+  transform-origin: center;
+  transition: transform 260ms ease, box-shadow 260ms ease;
+}
+
+.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 14px 36px rgba(5,2,2,0.7);
+}
+
+.card-title {
+  font-family: 'UnifrakturCook', 'Cinzel', serif;
+  margin: 0 0 0.25rem 0;
+  font-size: 1.25rem;
+  color: #f3e9df;
+}
+
+.tags {
+  margin-top: 0.75rem;
+}
+
+.tag {
+  display: inline-block;
+  margin-right: 0.5rem;
+  margin-bottom: 0.3rem;
+  padding: 0.25rem 0.5rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 4px;
+  font-size: 0.8rem;
+  color: #d8cfc4;
+}
+
+.footer {
+  text-align: center;
+  padding: 1.2rem 0;
+  color: #9b9287;
+  border-top: 1px solid rgba(200,180,170,0.03);
+}
+
+.cta {
+  display: inline-block;
+  margin-top: 0.6rem;
+  padding: 0.6rem 1rem;
+  background: linear-gradient(90deg, #4b0f12, #2b0b0c);
+  color: #f7efe6;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.cta:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,0.6); }
+
+/* responsive tweaks */
+@media (max-width: 560px) {
+  .lead { font-size: 1.2rem; }
+  .main { margin: 1rem; }
+}
+
+/* subtle fade-in */
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(8px);} to { opacity:1; transform:none; } }
+.main > * { animation: fadeInUp 420ms ease both; }
