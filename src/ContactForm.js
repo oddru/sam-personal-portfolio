@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import "./ContactForm.css";
 
 export default function ContactForm() {
@@ -9,83 +10,89 @@ export default function ContactForm() {
   });
 
   const [status, setStatus] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState("");
+  const [sending, setSending] = useState(false);
 
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
   function validate() {
-    const newErrors = {};
-
-    if (!form.name.trim()) newErrors.name = "Name is required";
-    if (!form.email.trim()) {
-      newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
-      newErrors.email = "Invalid email address";
+    if (!form.name || !form.email || !form.message) {
+      return "All fields are required";
     }
-    if (!form.message.trim()) newErrors.message = "Message is required";
-
-    return newErrors;
+    if (!/\S+@\S+\.\S+/.test(form.email)) {
+      return "Invalid email address";
+    }
+    return "";
   }
 
   function handleSubmit(e) {
     e.preventDefault();
 
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
+    const validationError = validate();
+    if (validationError) {
+      setErrors(validationError);
       return;
     }
 
-    setErrors({});
-    setStatus("Message sent successfully!");
+    setErrors("");
+    setSending(true);
 
-    // Placeholder for email service later
-    console.log(form);
-
-    setForm({ name: "", email: "", message: "" });
+    emailjs
+      .send(
+        "YOUR_SERVICE_ID",
+        "YOUR_TEMPLATE_ID",
+        {
+          name: form.name,
+          email: form.email,
+          message: form.message,
+        },
+        "YOUR_PUBLIC_KEY"
+      )
+      .then(
+        () => {
+          setStatus("Message sent successfully!");
+          setForm({ name: "", email: "", message: "" });
+        },
+        () => {
+          setErrors("Something went wrong. Please try again.");
+        }
+      )
+      .finally(() => setSending(false));
   }
 
   return (
     <form className="contact-form" onSubmit={handleSubmit}>
-      <div className="field">
-        <input
-          type="text"
-          name="name"
-          placeholder="Your Name"
-          value={form.name}
-          onChange={handleChange}
-        />
-        {errors.name && <span className="error">{errors.name}</span>}
-      </div>
+      <input
+        type="text"
+        name="name"
+        placeholder="Your Name"
+        value={form.name}
+        onChange={handleChange}
+      />
 
-      <div className="field">
-        <input
-          type="email"
-          name="email"
-          placeholder="Your Email"
-          value={form.email}
-          onChange={handleChange}
-        />
-        {errors.email && <span className="error">{errors.email}</span>}
-      </div>
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        value={form.email}
+        onChange={handleChange}
+      />
 
-      <div className="field">
-        <textarea
-          name="message"
-          placeholder="Your Message"
-          rows="5"
-          value={form.message}
-          onChange={handleChange}
-        />
-        {errors.message && <span className="error">{errors.message}</span>}
-      </div>
+      <textarea
+        name="message"
+        placeholder="Your Message"
+        rows="5"
+        value={form.message}
+        onChange={handleChange}
+      />
 
-      <button type="submit" className="submit-btn">
-        Send Message
+      <button type="submit" className="submit-btn" disabled={sending}>
+        {sending ? "Sending..." : "Send Message"}
       </button>
 
+      {errors && <p className="error">{errors}</p>}
       {status && <p className="success">{status}</p>}
     </form>
   );
