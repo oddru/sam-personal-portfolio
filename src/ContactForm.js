@@ -9,14 +9,16 @@ export default function ContactForm() {
     message: "",
   });
 
-  const [status, setStatus] = useState("");
-  const [errors, setErrors] = useState("");
-  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState(""); // Success message
+  const [errors, setErrors] = useState(""); // Validation / send errors
+  const [sending, setSending] = useState(false); // Sending state
 
+  // Update form state
   function handleChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
+  // Simple validation
   function validate() {
     if (!form.name || !form.email || !form.message) {
       return "All fields are required";
@@ -39,16 +41,17 @@ export default function ContactForm() {
     setErrors("");
     setSending(true);
 
+    // Send email via EmailJS using env variables
     emailjs
       .send(
-        "YOUR_SERVICE_ID",
-        "YOUR_TEMPLATE_ID",
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
         {
           name: form.name,
           email: form.email,
           message: form.message,
         },
-        "YOUR_PUBLIC_KEY"
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
       )
       .then(
         () => {
