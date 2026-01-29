@@ -44,14 +44,14 @@ export default function ContactForm() {
     // Send email via EmailJS using env variables
     emailjs
       .send(
-        process.env.REACT_APP_EMAILJS_SERVICE_ID,
-        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        "service_spox08a",
+        "template_rzu3ti4",
         {
           name: form.name,
           email: form.email,
           message: form.message,
         },
-        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        "3DertxO91NLZxrhv2"
       )
       .then(
         () => {
