@@ -3,6 +3,7 @@ import './App.css';
 import Nav from './components/Nav';
 import Section from './components/Section';
 import projects from './data/projects';
+import ContactForm from "./ContactForm";
 
 function App() {
   const [tab, setTab] = useState('Home');
@@ -83,8 +84,10 @@ function App() {
 
         {tab === 'Contact' && (
           <Section title="Contact Me!">
-            <p>I’m open to collaborations, freelance opportunities, and discussions related to web development, design, or cybersecurity.</p>
-            <a href="mailto:youremail@example.com" className="cta">Email me</a>
+            <p>I’m open to collaborations, freelance opportunities, and discussions related to web development, 
+            design, or cybersecurity.
+            </p>
+            <ContactForm />
           </Section>
         )}
       </main>
